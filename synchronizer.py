@@ -35,7 +35,7 @@ def synchronize_folders(source, replica, log_path):
 
         if not os.path.exists(destination_path):
             os.makedirs(destination_path)
-            log_message(log_path, f"📁 Created folder: {destination_path}")
+            log_message(log_path, f" Created folder: {destination_path}")
 
         for file in files:
             source_file = os.path.join(root, file)
@@ -44,7 +44,7 @@ def synchronize_folders(source, replica, log_path):
             if not os.path.exists(replica_file) or \
                     calculate_hash(source_file) != calculate_hash(replica_file):
                 shutil.copy2(source_file, replica_file)
-                log_message(log_path, f"📄 Copied file: {source_file} ➡️ {replica_file}")
+                log_message(log_path, f" Copied file: {source_file} ➡️ {replica_file}")
 
     # Remove extra files and folders from the replica that no longer exist in the source
     for root, dirs, files in os.walk(replica, topdown=False):
@@ -57,7 +57,7 @@ def synchronize_folders(source, replica, log_path):
 
             if not os.path.exists(source_file):
                 os.remove(replica_file)
-                log_message(log_path, f"❌ Removed file: {replica_file}")
+                log_message(log_path, f" Removed file: {replica_file}")
 
         for folder in dirs:
             replica_folder = os.path.join(root, folder)
@@ -65,7 +65,7 @@ def synchronize_folders(source, replica, log_path):
 
             if not os.path.exists(source_folder):
                 shutil.rmtree(replica_folder)
-                log_message(log_path, f"❌ Removed folder: {replica_folder}")
+                log_message(log_path, f" Removed folder: {replica_folder}")
 
 def main():
     parser = argparse.ArgumentParser(description="Folder Synchronizer (source ➡️ replica)")
@@ -85,15 +85,15 @@ def main():
         print(f"Error: Source folder '{source}' does not exist.")
         return
 
-    log_message(log_path, "🚀 Starting folder synchronizer...")
-    log_message(log_path, f"📂 Source folder: {source}")
-    log_message(log_path, f"📂 Replica folder: {replica}")
-    log_message(log_path, f"⏱ Interval: {interval} seconds")
-    log_message(log_path, f"📝 Log file: {log_path}")
+    log_message(log_path, " Starting folder synchronizer...")
+    log_message(log_path, f" Source folder: {source}")
+    log_message(log_path, f" Replica folder: {replica}")
+    log_message(log_path, f" Interval: {interval} seconds")
+    log_message(log_path, f" Log file: {log_path}")
 
     while True:
         synchronize_folders(source, replica, log_path)
-        log_message(log_path, "✅ Synchronization completed.")
+        log_message(log_path, " Synchronization completed.")
         time.sleep(interval)
 
 if __name__ == "__main__":
