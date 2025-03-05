@@ -2,4 +2,4 @@
 
 # How to run
 ```bash 
-python synchronizer.py "path\source" "path\replica" interval "path\synchronizer.log"
+python synchronizer.py "path\source" "path\replic" interval "path\synchronizer.log"
